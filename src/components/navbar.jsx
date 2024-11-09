@@ -7,7 +7,7 @@ export function Navbar() {
       <div className="flex items-center space-x-4">
         
         <Link to="/" className="text-xl font-semibold text-red-500"> {/* Smaller text for logo */}
-          HackRPI
+          CitySync
         </Link>
       </div>
       <div className="hidden md:flex space-x-4"> {/* Reduced space between links */}
