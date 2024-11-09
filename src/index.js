@@ -34,7 +34,7 @@ const router = createBrowserRouter([
    
   },
   {
-    path: "/opprtunity",
+    path: "/opportunity",
     element: <OpportunityPage />,
 
   }
