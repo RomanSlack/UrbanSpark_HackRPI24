@@ -50,3 +50,38 @@ body {
 .nav-link:hover {
   color: #ef4444; /* Tailwind's red-500 color */
 }
+
+/* src/App.css */
+
+.fade-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+
+/* src/App.css */
+
+/* Hide the default cursor */
+.cursor-none {
+  cursor: none;
+}
+
+/* Smooth transition for the custom cursor */
+.pointer-events-none {
+  will-change: transform, opacity;
+}
