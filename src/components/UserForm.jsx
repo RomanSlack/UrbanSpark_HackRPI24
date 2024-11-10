@@ -1,7 +1,7 @@
 // src/components/UserForm.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Query from '../Ai';
+
 import Query2 from '../FinalOutputAi'
 
 function UserForm() {
@@ -12,6 +12,7 @@ function UserForm() {
     age: '',
   });
   const [step, setStep] = useState(1);
+  const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -27,44 +28,26 @@ function UserForm() {
     setStep(step - 1);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
    
     
     
 
     {/*Data managment system */}    
-
     const formattedData = `City: ${formData.city}\nAddress: ${formData.address}\nBio: ${formData.bio}\nAge: ${formData.age}`;
     console.log("Submitted Data:", formattedData);
 
-    try {
-      const querysFromGPT = await Query(formattedData); 
-      console.log("Query Result:", querysFromGPT);
-      const summarizedData = await Query2(querysFromGPT);
-      console.log("summarizedData:" + summarizedData)
-      
-    }
-    catch (error){
-      console.error("Error calling Query function:", error);
+    {/*     const querysFromGPT = Query(formattedData); // Pass the formatted data to the Query function
 
-    }
+    const datafromSearchAPI = searchAPI(querysFromGPT)
 
-//  // Pass the formatted data to the Query function
-
-//    // const datafromSearchAPI = searchAPI(querysFromGPT)
-
-//     //const summarizedData = await Query2(datafromSearchAPI);
-//}
+    const summarizedData = summarizeGPT(datafromSearchAPI)
+*/}
 
 
 
     navigate('/opportunity');
-
-
-
-
-
   };
 
   return (
