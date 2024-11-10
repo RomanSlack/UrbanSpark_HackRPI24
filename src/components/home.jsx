@@ -73,10 +73,10 @@ function Home() {
           {/* Home Screen Content */}
           <main className="flex flex-col items-center mt-20 z-10">
             <h1 className="text-6xl font-bold text-white drop-shadow-lg tracking-wider">
-              CitySync
+            UrbanSpark
             </h1>
             <p className="text-lg text-gray-200 mt-4 max-w-md">
-              Helping students become community members and find essential resources.
+            Igniting community connections and fostering growth.
             </p>
 
             {/* Floating Begin Button with Glowing Border */}

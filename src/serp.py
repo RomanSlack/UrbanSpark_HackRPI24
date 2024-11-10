@@ -1,8 +1,9 @@
 import serpapi
 
-sampleData = { "Search Queries": [ "Painting classes for kids in New York City", "Art exhibitions for children in New York City", "Computer workshops for kids in New York City", "Coding classes for kids in New York City", "Tech museums in New York City", "Art supplies stores in New York City", "Kids friendly art galleries in New York City", "Educational computer games events in New York City", "Interactive tech exhibits for kids in New York City", "DIY painting activity in New York City" ] }
+#sampleData = { "Search Queries": [ "Painting classes for kids in New York City", "Art exhibitions for children in New York City", "Computer workshops for kids in New York City", "Coding classes for kids in New York City", "Tech museums in New York City", "Art supplies stores in New York City", "Kids friendly art galleries in New York City", "Educational computer games events in New York City", "Interactive tech exhibits for kids in New York City", "DIY painting activity in New York City" ] }
 
-inputquery = sampleData["Search Queries"][0]
+sampleData = { "queries": [ "Art education opportunities for kids in New York City", "Computer science education opportunities for kids in New York City", "Internship opportunities for kids interested in painting in New York City", "Internship opportunities for kids interested in computer science in New York City", "Youth volunteering opportunities in New York City", "Volunteer opportunities for kids interested in art in New York City", "Healthy food options for kids in New York City", "Food banks for families in New York City", "Co-op opportunities for kids interested in computer science in New York City", "Co-op opportunities for kids interested in painting in New York City", "Volunteer opportunities for kids interested in computer science in New York City", "Art related volunteer opportunities for kids in New York City", "Computer science related volunteer opportunities for kids in New York City", "Healthy food cooking classes for kids in New York City", "Nutrition workshops for kids in New York City", "Art workshops for kids in New York City", "Computer science workshops for kids in New York City", "Food donation centers for families in New York City", "Food assistance programs for families in New York City", "Cooking classes for kids in New York City" ] }
+inputquery = sampleData["queries"][0]
 print(inputquery)   
 
 api_key =  "8f0f7e61794200e4c5eda13abda9e8144ddfd7f655dad5ca45177feff6b0e1a3"
@@ -13,7 +14,7 @@ params = {
    "api_key": "8f0f7e61794200e4c5eda13abda9e8144ddfd7f655dad5ca45177feff6b0e1a3"
 }
 
-for query in sampleData["Search Queries"]:
+for query in sampleData["queries"]:
     params = {
         "engine": "google",
         "q": query,
