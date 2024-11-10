@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 function UserForm() {
   const [formData, setFormData] = useState({
     city: '',
+    address: '', // New address field
     bio: '',
     age: '',
   });
@@ -26,7 +27,7 @@ function UserForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formattedData = `City: ${formData.city}\nBio: ${formData.bio}\nAge: ${formData.age}`;
+    const formattedData = `City: ${formData.city}\nAddress: ${formData.address}\nBio: ${formData.bio}\nAge: ${formData.age}`;
     console.log("Submitted Data:", formattedData);
 
     // Redirect to the new blank page
@@ -54,6 +55,21 @@ function UserForm() {
                 required
               />
             </label>
+
+            {/* New Address Field */}
+            <label className="text-lg font-medium text-gray-700">
+              Home Address
+              <input
+                type="text"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                className="mt-2 p-3 w-full border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-red-400 focus:outline-none"
+                placeholder="Enter your address"
+                required
+              />
+            </label>
+
             <button
               type="button"
               onClick={handleNext}

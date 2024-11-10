@@ -90,3 +90,9 @@ body, html {
 .pointer-events-none {
   will-change: transform, opacity;
 }
+
+/* Custom class to disable vertical scroll */
+.no-scroll {
+  overflow-y: hidden;
+}
+
