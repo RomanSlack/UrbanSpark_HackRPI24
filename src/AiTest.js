@@ -16,7 +16,7 @@ function AiTest({}) {
 
   return(
     <>
-        <p>Hello!</p>
+      
         <h1>{response}</h1>
    
     </>
