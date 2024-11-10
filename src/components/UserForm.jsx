@@ -62,6 +62,7 @@ function UserForm() {
         bio: formData.bio,
         age: formData.age,
       };
+      
     console.log("Submitted Data:", formattedData);
     
     const querysFromGPT = await Query(formattedData)
