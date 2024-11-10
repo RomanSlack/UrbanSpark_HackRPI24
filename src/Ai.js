@@ -7,9 +7,8 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 
 export default async function Query(userdata) {
 
-  userdata = userdata
+
   try {
-     
     
 
     const prompt = `Generate a list of say 2 for each category of Google search queries, please find 10 for each in these categories
@@ -18,7 +17,10 @@ export default async function Query(userdata) {
 The queries should focus on activities and experiences within the user's city that match their interests and age. 
 Ensure each query is specific to the city mentioned.
 
+
+
 User Data: ${userdata}
+This is the return format for the queries.
 Return format:
 {
   "queries": [

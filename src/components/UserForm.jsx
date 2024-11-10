@@ -30,23 +30,22 @@ function UserForm() {
   };
 
   const handleSearch = async (queries) => {
-
-
     try {
-      const response = await fetch('http://127.0.0.1:8000/search', {
-        method: 'POST',
+      const response = await fetch("http://127.0.0.1:8000/search", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(queries),
+        body: JSON.stringify({ queries }), // Pass the queries directly as { queries: [...] }
       });
-      if (response.ok) {
-        const results = await response.json();
-        setSearchResults(results);
-        console.log("Formatted Search Results:", results);
-      } else {
-        console.error("Error fetching search results:", response.statusText);
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
       }
+
+      const data = await response.json();
+      setSearchResults(data.results);
+      return data.results;
     } catch (error) {
       console.error("Error fetching search results:", error);
     }
@@ -57,19 +56,24 @@ function UserForm() {
   const handleSubmit = async (e) => { // Make handleSubmit async
     e.preventDefault();
 
-    const formattedData = `City: ${formData.city}\nAddress: ${formData.address}\nBio: ${formData.bio}\nAge: ${formData.age}`;
+    const formattedData = {
+        city: formData.city,
+        address: formData.address,
+        bio: formData.bio,
+        age: formData.age,
+      };
     console.log("Submitted Data:", formattedData);
     
-
-    
-    
-    const querysFromGPT = await Query(formattedData);
+    const querysFromGPT = await Query(formattedData)
     console.log("Queries from Query1", querysFromGPT);
 
-    const datafromSearchAPI = await handleSearch(querysFromGPT); // Await search to ensure it completes before navigating
-
-    const summarizedData = Query2(datafromSearchAPI)
-    console.log("Summarized Data:", summarizedData);
+    if (Array.isArray(querysFromGPT)) {
+        const dataFromSearchAPI = await handleSearch(querysFromGPT); 
+        const summarizedData = Query2(dataFromSearchAPI);
+        console.log("Summarized Data:", summarizedData);
+    } else {
+        console.error("Error: queriesFromGPT should be an array of strings.");
+    }
 
     
     navigate('/opportunity');
