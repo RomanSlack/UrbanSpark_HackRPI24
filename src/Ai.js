@@ -32,7 +32,7 @@ Return format:
     ...
   ]
 }`;
-console.log(prompt);
+//console.log(prompt);
     // Call the GPT API with the prompt
     const response = await axios.post(
       'https://api.openai.com/v1/chat/completions',

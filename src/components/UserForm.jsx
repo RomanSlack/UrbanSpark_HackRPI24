@@ -62,11 +62,15 @@ function UserForm() {
         bio: formData.bio,
         age: formData.age,
       };
-      
+
     console.log("Submitted Data:", formattedData);
     
     const querysFromGPT = await Query(formattedData)
+
+    
     console.log("Queries from Query1", querysFromGPT);
+    
+
 
     if (Array.isArray(querysFromGPT)) {
         const dataFromSearchAPI = await handleSearch(querysFromGPT); 
@@ -75,7 +79,7 @@ function UserForm() {
     } else {
         console.error("Error: queriesFromGPT should be an array of strings.");
     }
-
+    
     
     navigate('/opportunity');
   };
