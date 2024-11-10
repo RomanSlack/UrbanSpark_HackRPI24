@@ -4,6 +4,7 @@ import SearchMap from "./map_search";
 import { useEffect, useState } from "react";
 import { Navbar } from "./navbar";
 import { AppNavbar } from "./AppNavbar";
+import instance from "../api";
 
 async function PlacesServiceQuery() {
   // TODO use MapBox Places API Points of Interest Query Search Nearby
@@ -36,30 +37,21 @@ export function OpportunityOptions() {
 
   const [getPOI, setPOI] = useState([]);
 
+
   const SearchQueryParams = (category) => {
     const params = {
-      Food: "food+pantry",
-      Work: "workforce+center+career+job",
-      Education: "youth+education+school+programs",
-      Volunteering: "youth+community+service+food+pantry+animal+shelter+homeless+shelter"
+      Food: `food+pantry+new+york`,
+      Work: `workforce+center+career+job+new+york`,
+      Education: `youth+education+school+programs+new+york`,
+      Volunteering: `youth+community+service+food+pantry+animal+shelter+homeless+shelter+new+york`
     };
 
     return params[category];
   };
 
-  const params = {
-    q: "food",
-    language: "en",
-    country: "us",
-    longditude: -73.9206907,
-    latitude: 40.8615955,
-  };
-
   const suggest_uri = `https://api.mapbox.com/search/searchbox/v1/suggest?q=${SearchQueryParams(
     state.category
-  )}&language=en&country=us&proximity=${params.longditude},${
-    params.latitude
-  }&session_token=${crypto.randomUUID()}&access_token=${
+  )}&language=en&country=us&session_token=${crypto.randomUUID()}&access_token=${
     process.env.REACT_APP_MAPBOX
   }`;
 

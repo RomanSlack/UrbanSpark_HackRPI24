@@ -10,7 +10,7 @@ export function AppNavbar() {
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1">
             <li>
-                <Link to="/"><a>My Profile</a></Link>
+                <Link to="/profile"><a>My Profile</a></Link>
             </li>
             <li>
               <details>
@@ -20,7 +20,7 @@ export function AppNavbar() {
                     <Link to="/"><a>Home</a></Link>
                   </li>
                   <li>
-                    <a>Map</a>
+                   <Link to="/opportunity" ><a>Opportunities</a></Link>
                   </li>
                 </ul>
               </details>

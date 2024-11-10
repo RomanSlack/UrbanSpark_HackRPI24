@@ -19,6 +19,7 @@ import AiTest from "./AiTest";
 import { OpportunityOptions } from "./components/opportunity_options";
 import LoadingPage from "./components/LoadingPage";
 import Onboarding from "./components/Onboarding";
+import ProfilePage from "./components/profile";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
   {
     path: "/onboarding",
     element: <Onboarding />
+  },
+  {
+    path: "/profile",
+    element: <ProfilePage />
   },
   {
     path: "/AiTest",

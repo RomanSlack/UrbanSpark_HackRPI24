@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import FadeTransition from './FadeTransition';
+import { AppNavbar } from './AppNavbar';
 
 function Home() {
   const navigate = useNavigate();
@@ -28,6 +29,8 @@ function Home() {
   return (
     <div className="relative">
      {/* <Navbar />*/}
+     <AppNavbar />
+
       <FadeTransition in={!isExiting}>
         <div className="relative min-h-screen flex flex-col items-center justify-center text-center bg-gradient-to-br from-gray-900 via-gray-800 to-red-600 overflow-hidden cursor-none">
           

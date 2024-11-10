@@ -6,8 +6,11 @@ import food from './assets/food.jpeg'
 import education from './assets/education.jpg'
 import volunteer from './assets/volunteer.jpg'
 import { AppNavbar } from "./AppNavbar";
+import { useLocation } from "react-router-dom";
 
 export default function OpportunityPage() {
+
+    const { state } = useLocation();
 
     const cards = [
         <OpportunityCard
@@ -15,6 +18,7 @@ export default function OpportunityPage() {
         name={'Food'}
         description={<p>Locations to Food Pantry Services</p>}
         img_uri={food}
+        city={state.city}
 
         ></OpportunityCard>,
         <OpportunityCard
@@ -22,6 +26,8 @@ export default function OpportunityPage() {
         name={'Work'}
         description={<p>Access Work Services</p>}
         img_uri={work}
+        city={state.city}
+
 
         ></OpportunityCard>,
         <OpportunityCard
@@ -29,6 +35,8 @@ export default function OpportunityPage() {
         name={'Education'}
         description={<p>Access Educational Services</p>}
         img_uri={education}
+        city={state.city}
+
 
         ></OpportunityCard>,
         <OpportunityCard
@@ -36,6 +44,7 @@ export default function OpportunityPage() {
         name={'Volunteering'}
         description={<p>Find places to volunteer</p>}
         img_uri={volunteer}
+        city={state.city}
 
         ></OpportunityCard>,
     ]

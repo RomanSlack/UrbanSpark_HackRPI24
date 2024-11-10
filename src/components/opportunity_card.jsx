@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function OpportunityCard({uri, name, description, img_uri}) {
+export default function OpportunityCard({uri, name, description, img_uri, city}) {
     return (
         <div className="card bg-base-100 w-96 shadow-xl">
             <figure>
@@ -12,7 +12,7 @@ export default function OpportunityCard({uri, name, description, img_uri}) {
                 <h2 className="card-title">{name}</h2>
                 <p>{description}</p>
                 <div className="card-actions justify-end">
-                <Link to={uri} state={{category: name}}><button className="btn btn-primary">View</button></Link>
+                <Link to={uri} state={{category: name, city: city}}><button className="btn btn-primary">View</button></Link>
                 </div>
             </div>
         </div>

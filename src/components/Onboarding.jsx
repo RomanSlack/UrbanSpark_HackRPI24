@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import instance from '../api';
+import { writeStorage } from '@rehooks/local-storage';
 
 export default function Onboarding() {
   const [formData, setFormData] = useState({
@@ -36,7 +37,9 @@ export default function Onboarding() {
       console.error('Error:', error);
     }
 
-    navigate('/loading')
+    writeStorage('name', name)
+
+    navigate('/opportunity', {state: {city: city}})
     
   };
 
