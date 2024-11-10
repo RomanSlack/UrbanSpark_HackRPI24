@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Query from '../Ai';
+import Query2 from '../FinalOutputAi';
 
 function UserForm() {
   const [formData, setFormData] = useState({
@@ -40,7 +41,7 @@ function UserForm() {
 
     const datafromSearchAPI = searchAPI(querysFromGPT)
 
-    const summarizedData = summarizeGPT(datafromSearchAPI)
+    const summarizedData = Query2(datafromSearchAPI)
 */}
 
 
