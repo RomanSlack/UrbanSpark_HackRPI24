@@ -1,50 +1,38 @@
-// src/api/apiHandler.js
+// src/apiHandler.js
+
 import Query from '../Ai';
-// import Query2 from '../FinalOutputAi';
 
-export const submitUserData = async (formData, navigate, setSearchResults) => {
+export const submitUserData = async (formattedData) => {
   try {
-    console.log("Submitted Data:", formData);
-
-    // Step 1: Generate queries from the user data
-    const querysFromGPT = await Query(formData);
-    console.log("Queries from Query1:", querysFromGPT);
-
+    // Get queries from GPT based on the user data
+    const querysFromGPT = await Query(formattedData);
     let parsedQueries;
+
     if (typeof querysFromGPT === "string") {
       try {
-        parsedQueries = JSON.parse(querysFromGPT); // Parse if string
+        parsedQueries = JSON.parse(querysFromGPT);
       } catch (error) {
         console.error("Error parsing JSON:", error);
-        return;
+        return [];
       }
     } else {
-      parsedQueries = querysFromGPT; // Use directly if already an object
+      parsedQueries = querysFromGPT;
     }
 
-    // Step 2: Ensure parsedQueries is correctly formatted and call handleSearch
     if (parsedQueries && Array.isArray(parsedQueries.queries)) {
-      const dataFromSearchAPI = await handleSearch(parsedQueries.queries, setSearchResults);
-      console.log("Data from Search API:", dataFromSearchAPI);
-
-      // Step 3: Summarize data (uncomment if Query2 is available)
-      // const summarizedData = Query2(dataFromSearchAPI);
-      // console.log("Summarized Data:", summarizedData);
-
-      // Return search results data
-      return dataFromSearchAPI;
+      // Call handleSearch and return the search results
+      return await handleSearch(parsedQueries.queries);
     } else {
       console.error("Error: parsedQueries.queries should be an array of strings.");
-      return null;
+      return [];
     }
   } catch (error) {
-    console.error("Error in submitUserData:", error);
-    return null;
+    console.error("Error fetching search results:", error);
+    return [];
   }
 };
 
-// Function to call the FastAPI backend for SerpAPI search
-const handleSearch = async (queriesArray, setSearchResults) => {
+const handleSearch = async (queriesArray) => {
   console.log("Queries Array being sent:", queriesArray);
   try {
     const response = await fetch("http://127.0.0.1:8000/search", {
@@ -60,10 +48,10 @@ const handleSearch = async (queriesArray, setSearchResults) => {
     }
 
     const data = await response.json();
-    setSearchResults(data.results);
-    return data.results; // Return search results
+    console.log("Data from FastAPI:", data.results);
+    return data.results;
   } catch (error) {
     console.error("Error fetching search results:", error);
-    return null;
+    return [];
   }
 };

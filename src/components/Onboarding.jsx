@@ -1,6 +1,7 @@
 // src/components/Onboarding.js
+
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { submitUserData } from './apiHandler';
 
 export default function Onboarding() {
@@ -11,7 +12,6 @@ export default function Onboarding() {
     work_address: '',
     age: '',
   });
-  const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -30,8 +30,15 @@ export default function Onboarding() {
       age: formData.age,
     };
 
-    const searchResults = await submitUserData(formattedData, navigate, setSearchResults);
-    console.log("Search Results Returned from submitUserData:", searchResults);
+    // Fetch search results and update state
+    const results = await submitUserData(formattedData);
+    console.log("Search Results Returned from submitUserData:", results);
+
+    if (results && Object.keys(results).length > 0) {
+      navigate('/results', { state: { searchResults: results } });
+    } else {
+      console.error("No search results found.");
+    }
   };
 
   return (

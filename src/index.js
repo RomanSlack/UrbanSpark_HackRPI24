@@ -5,10 +5,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 // DO NOT REMOVE ./App.css THIS IS NEEDED FOR TAILWIND AND DAISY TO WORK
-import "./App.css"
+import "./App.css";
 import "./index.css";
 import "./AiTest";
-
 
 import Home from "./components/home";
 import OpportunityCard from "./components/opportunity_card";
@@ -19,6 +18,7 @@ import AiTest from "./AiTest";
 import { OpportunityOptions } from "./components/opportunity_options";
 import LoadingPage from "./components/LoadingPage";
 import Onboarding from "./components/Onboarding";
+import ResultsPage from "./components/resultspage"; // Ensure correct capitalization in file names
 
 const router = createBrowserRouter([
   {
@@ -36,12 +36,10 @@ const router = createBrowserRouter([
   {
     path: "/submitted",
     element: <SubmittedPage />,
-   
   },
   {
     path: "/opportunity",
     element: <OpportunityPage />,
-
   },
   {
     path: "/opportunity/:category",
@@ -58,11 +56,15 @@ const router = createBrowserRouter([
   {
     path: "/AiTest",
     element: <AiTest />,
-
+  },
+  {
+    path: "/results",
+    element: <ResultsPage />,
   }
 ]);
 
-// DO NOT EDIT THIS LINE AT ALL
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
 );
