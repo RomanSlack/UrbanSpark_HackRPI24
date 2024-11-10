@@ -1,16 +1,18 @@
-// FormComponent.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import instance from '../api';
 
 export default function Onboarding() {
   const [formData, setFormData] = useState({
     name: '',
     city: '',
-    homeAddress: '',
-    workSchoolAddress: '',
+    home_address: '',
+    work_address: '',
     age: '',
   });
+
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,18 +23,21 @@ export default function Onboarding() {
     e.preventDefault();
 
     // Check if all fields are filled out
-    const { name, city, homeAddress, workSchoolAddress, age } = formData;
-    if (!name || !city || !homeAddress || !workSchoolAddress || !age) {
+    const { name, city, home_address, work_address, age } = formData;
+    if (!name || !city || !home_address || !work_address || !age) {
       alert('Please fill out all fields before submitting.');
       return;
     }
 
     try {
-      const response = await axios.post('https://your-api-endpoint.com', formData);
+      const response = await instance.post('users/', formData);
       console.log('Response:', response.data);
     } catch (error) {
       console.error('Error:', error);
     }
+
+    navigate('/loading')
+    
   };
 
   return (
@@ -70,14 +75,14 @@ export default function Onboarding() {
         </div>
 
         <div className="form-control">
-          <label className="label" htmlFor="homeAddress">
+          <label className="label" htmlFor="home_address">
             <span className="label-text">Home Address</span>
           </label>
           <input
             type="text"
-            id="homeAddress"
-            name="homeAddress"
-            value={formData.homeAddress}
+            id="home_address"
+            name="home_address"
+            value={formData.home_address}
             onChange={handleChange}
             className="input input-bordered w-full"
             required
@@ -85,14 +90,14 @@ export default function Onboarding() {
         </div>
 
         <div className="form-control">
-          <label className="label" htmlFor="workSchoolAddress">
+          <label className="label" htmlFor="work_address">
             <span className="label-text">Work/School Address</span>
           </label>
           <input
             type="text"
-            id="workSchoolAddress"
-            name="workSchoolAddress"
-            value={formData.workSchoolAddress}
+            id="work_address"
+            name="work_address"
+            value={formData.work_address}
             onChange={handleChange}
             className="input input-bordered w-full"
             required
@@ -115,9 +120,7 @@ export default function Onboarding() {
         </div>
 
         <div className="mt-8"></div>
-        <Link to="/loading">
-          <button type="submit" className="btn btn-primary w-full">Let's Go!</button>
-        </Link>
+        <button type="submit" className="btn btn-primary w-full" onClick={handleSubmit}>Let's Go!</button>
       </form>
     </div>
   );
