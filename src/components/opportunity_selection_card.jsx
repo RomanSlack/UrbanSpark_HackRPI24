@@ -26,6 +26,7 @@ export function OpportunitySelect({ name, link, address, category }) {
         <div className="card-body">
           <h2 className="card-title">{name}</h2>
           <p>{address}</p>
+          <p>{link}</p>
           <div className="card-actions justify-end">
             <button className="btn btn-accent">Add to Favorites</button>
           </div>

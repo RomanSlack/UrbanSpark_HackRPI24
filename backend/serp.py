@@ -1,6 +1,6 @@
 import requests
 
-API_KEY = "fb6e2882f68d0dd7f1f4fecd65f0c082216c780ef8e052378dd59fe41fe4c690"
+API_KEY = "2bc4d08d3cdaac43b8a51918b598490a842832827fe00600a0b592a81ab6c37a"
 
 def search_serpapi(query: str):
     url = "https://serpapi.com/search"

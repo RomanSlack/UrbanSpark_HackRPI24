@@ -1,7 +1,9 @@
 // FormComponent.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Query from '../Ai';
+import Query2 from '../FinalOutputAi';
 
 export default function Onboarding() {
   const [formData, setFormData] = useState({
@@ -11,28 +13,85 @@ export default function Onboarding() {
     workSchoolAddress: '',
     age: '',
   });
+  const [searchResults, setSearchResults] = useState([]);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleSearch = async (queriesArray) => {
+    console.log("Queries Array being sent:", queriesArray);
+    try {
+      const response = await fetch("http://127.0.0.1:8000/search", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ queries: queriesArray }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      setSearchResults(data.results);
+      console.log("Data from FastAPI:", data.results);
+
+      return data.results;
+    } catch (error) {
+      console.error("Error fetching search results:", error);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check if all fields are filled out
-    const { name, city, homeAddress, workSchoolAddress, age } = formData;
-    if (!name || !city || !homeAddress || !workSchoolAddress || !age) {
-      alert('Please fill out all fields before submitting.');
-      return;
+    const formattedData = {
+      name: formData.name,
+      city: formData.city,
+      homeAddress: formData.homeAddress,
+      workSchoolAddress: formData.workSchoolAddress,
+      age: formData.age,
+    };
+
+    console.log("Submitted Data:", formattedData);
+
+    // Fetch generated queries from the first AI function
+    const querysFromGPT = await Query(formattedData);
+    console.log("Queries from Query1:", querysFromGPT);
+    console.log("Type of querysFromGPT:", typeof querysFromGPT);
+
+    // Parse if needed and handle as an array
+    let parsedQueries;
+    if (typeof querysFromGPT === "string") {
+      try {
+        parsedQueries = JSON.parse(querysFromGPT);
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+      }
+    } else {
+      parsedQueries = querysFromGPT;
     }
 
-    try {
-      const response = await axios.post('https://your-api-endpoint.com', formData);
-      console.log('Response:', response.data);
-    } catch (error) {
-      console.error('Error:', error);
+    // Check if parsedQueries is in the expected format and pass to handleSearch
+    if (parsedQueries && Array.isArray(parsedQueries.queries)) {
+      const dataFromSearchAPI = await handleSearch(parsedQueries.queries);
+
+
+      console.log(typeof dataFromSearchAPI);
+
+      
+      //const summarizedData = Query2(formattedData,dataFromSearchAPI);
+     
+      //console.log("Summarized Data:", summarizedData);
+    } else {
+      console.error("Error: parsedQueries.queries should be an array of strings.");
     }
+
+    navigate('/loading');  // Assuming this is the correct next page
   };
 
   return (
@@ -114,10 +173,9 @@ export default function Onboarding() {
           />
         </div>
 
-        <div className="mt-8"></div>
-        <Link to="/loading">
-          <button type="submit" className="btn btn-primary w-full">Let's Go!</button>
-        </Link>
+        <button type="submit" className="btn btn-primary w-full">
+          Let's Go!
+        </button>
       </form>
     </div>
   );

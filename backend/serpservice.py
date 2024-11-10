@@ -2,8 +2,7 @@ from serpapi import GoogleSearch  # Import GoogleSearch directly
 from typing import List
 
 # Set up the API key
-api_key = "8f0f7e61794200e4c5eda13abda9e8144ddfd7f655dad5ca45177feff6b0e1a3"
-
+api_key = "2bc4d08d3cdaac43b8a51918b598490a842832827fe00600a0b592a81ab6c37a"
 def fetch_search_results(data: dict) -> List[dict]:
     results_list = []
 

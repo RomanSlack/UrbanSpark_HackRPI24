@@ -70,18 +70,45 @@ const handleSubmit = async (e) => {
     
     const querysFromGPT = await Query(formattedData)
 
-    
-    console.log("Queries from Query1", querysFromGPT);
-    
+    console.log("Queries from Query1");
+    console.log("Type of querysFromGPT:", typeof querysFromGPT);
 
 
-    if (Array.isArray(querysFromGPT)) {
-        const dataFromSearchAPI = await handleSearch(querysFromGPT); 
-        const summarizedData = Query2(dataFromSearchAPI);
-        console.log("Summarized Data:", summarizedData);
-    } else {
-        console.error("Error: queriesFromGPT should be an array of strings.");
+    /*const querysFromGPT = {
+        "queries": [
+          "Undergraduate scholarships in Rapid City",
+          "Adult education courses in Rapid City",
+          "Internship opportunities in Rapid City for 18 year olds",
+          "Part time jobs in Rapid City for students",
+          "Volunteering opportunities in Rapid City for young adults",
+          "Community service opportunities in Rapid City",
+          "Healthy food restaurants in Rapid City",
+          "Food banks in Rapid City",
+          "Running clubs in Rapid City",
+          "Fitness centers in Rapid City for 18 year olds"
+        ]
+      }
+        */
+
+   let parsedQueries;
+if (typeof querysFromGPT === "string") {
+    try {
+        parsedQueries = JSON.parse(querysFromGPT); // Parse the JSON string
+    } catch (error) {
+        console.error("Error parsing JSON:", error);
     }
+} else {
+    parsedQueries = querysFromGPT;
+}
+
+// Verify and use the parsed result
+if (parsedQueries && Array.isArray(parsedQueries.queries)) {
+    const dataFromSearchAPI = await handleSearch(parsedQueries.queries);
+    const summarizedData = Query2(dataFromSearchAPI);
+    console.log("Summarized Data:", summarizedData);
+} else {
+    console.error("Error: parsedQueries.queries should be an array of strings.");
+}
     
     
     navigate('/opportunity');
