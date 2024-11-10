@@ -118,8 +118,8 @@ Input data: ${activityData}
 
 Return format:
 {
-  “Catagory 1” : {Link1:Description1,Link2 Description 2 },
-  “Catagory 2” : {Link1:Description1,Link2 Description 2 },
+  “Catagory 1” : [Name1,Description1,Link1]
+  “Catagory 2” : [Name2,Description2,Link2],
   
   }`;
 
