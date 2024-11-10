@@ -9,9 +9,9 @@ export function Navbar() {
           <Link to="/" className="text-xl font-semibold text-red-500">
             CitySync
           </Link>
-          <Link to="/AiTest" className="text-xl font-semibold text-red-500">
+          {/* <Link to="/AiTest" className="text-xl font-semibold text-red-500">
             Ai Test
-          </Link>
+          </Link> */}
         </div>
         <div className="hidden md:flex space-x-4">
           {/* Additional links could go here */}
