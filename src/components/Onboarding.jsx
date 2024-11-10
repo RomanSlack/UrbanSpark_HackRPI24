@@ -30,7 +30,7 @@ export default function Onboarding() {
       age: formData.age,
     };
 
-    const searchResults = await submitUserData(formattedData, navigate, setSearchResults);
+    const searchResults = await submitUserData(formattedData, setSearchResults);
     console.log("Search Results Returned from submitUserData:", searchResults);
   };
 

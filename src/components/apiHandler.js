@@ -2,7 +2,7 @@
 import Query from '../Ai';
 // import Query2 from '../FinalOutputAi';
 
-export const submitUserData = async (formData, navigate, setSearchResults) => {
+export const submitUserData = async (formData, setSearchResults) => {
   try {
     console.log("Submitted Data:", formData);
 
