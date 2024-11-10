@@ -1,79 +1,33 @@
-"""
-Steps to run this file
-
-1. create a virtual environment
-    
-    python3 -m venv pkg
-
-2. Initialize the virtual environment
-
-    source venv/pkg/bin/activate
-
-3. Install fastapi
-
-    pip3 install "fastapi[standard]"
-
-4. run it
-
-    fastapi run
-"""
-
-from fastapi import (
-    FastAPI,
-    Query,
-    Depends,
-    HTTPException,
-    status
-)
+# app.py
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import Annotated
-from sqlmodel import (
-    create_engine,
-    select,
-    SQLModel,
-    Session,
-    Field,
-
-)
+from serpservice import fetch_search_results  # Import the Python function
+from typing import List
 
 app = FastAPI()
 
-# SQL Lite setup 
-sql_lite_fn = 'database.db'
-sql_lite_url = f"sqlite:///{sql_lite_fn}"
-connect_args = {
-    "check_same_thread": False
-}
+# Set up CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Allow requests from localhost:3000
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+)
 
-engine = create_engine(sql_lite_url, connect_args=connect_args)
+class SearchQuery(BaseModel):
+    queries: List[str]
 
-def create_db_and_tables():
-    SQLModel.metadata.create_all(engine)
+@app.post("/search")
+async def search(data: SearchQuery):
+    try:
+        # Fetch search results using the function
+        search_results = fetch_search_results(data.dict())
+        return {"results": search_results}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
-def get_session():
-    with Session(engine) as session:
-        yield session
-
-SessionDep = Annotated[Session, Depends(get_session)]
-
-# Models
-"""
-How to use models
-
-https://sqlmodel.tiangolo.com/tutorial/create-db-and-table/
-"""
-class User(SQLModel, table=True):
-    id: int | None = Field(default=None, primary_key=True)
-    address: str
-
-@app.on_event("startup")
-def on_startup():
-    create_db_and_tables()
-
-@app.get("/healthz", status_code=status.HTTP_200_OK)
+@app.get("/healthz")
 def health():
     return {"live": 1}
-
-@app.get("/search/{query}")
-def search(query):
-    return  {"result": query}

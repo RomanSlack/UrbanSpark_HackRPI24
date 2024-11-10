@@ -1,8 +1,7 @@
 // src/components/UserForm.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Query from '../Ai';
-import Query2 from '../FinalOutputAi';
+
 
 function UserForm() {
   const [formData, setFormData] = useState({
@@ -12,6 +11,7 @@ function UserForm() {
     age: '',
   });
   const [step, setStep] = useState(1);
+  const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -27,31 +27,41 @@ function UserForm() {
     setStep(step - 1);
   };
 
-  const handleSubmit = (e) => {
+  const handleSearch = async () => {
+    const queries = {
+      queries: [
+        "Art education opportunities for kids in New York City",
+        "Computer science education opportunities for kids in New York City",
+        // ...other queries as needed
+      ],
+    };
+
+    try {
+      const response = await fetch('http://127.0.0.1:8000/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(queries),
+      });
+      if (response.ok) {
+        const results = await response.json();
+        setSearchResults(results);
+        console.log("Formatted Search Results:", results);
+      } else {
+        console.error("Error fetching search results:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching search results:", error);
+    }
+  };
+  // Async function to call fetchSearchResults
+  
+
+  const handleSubmit = async (e) => { // Make handleSubmit async
     e.preventDefault();
-   
-    
-    
-
-    {/*Data managment system */}    
-    const formattedData = `City: ${formData.city}\nAddress: ${formData.address}\nBio: ${formData.bio}\nAge: ${formData.age}`;
-    console.log("Submitted Data:", formattedData);
-
-    {/*     const querysFromGPT = Query(formattedData); // Pass the formatted data to the Query function
-
-    const datafromSearchAPI = searchAPI(querysFromGPT)
-
-    const summarizedData = Query2(datafromSearchAPI)
-*/}
-
-
-
+    await handleSearch(); // Await search to ensure it completes before navigating
     navigate('/opportunity');
-
-
-
-
-
   };
 
   return (
