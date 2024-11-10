@@ -120,7 +120,7 @@ export default function Onboarding() {
           />
         </div>
 
-        <button type="submit" className="btn btn-primary w-full">
+        <button type="submit" className="w-full py-2 text-white font-semibold rounded-lg shadow-md transition duration-300 ease-in-out transform bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 focus:outline-none focus:ring-4 focus:ring-red-300">
           Let's Go!
         </button>
       </form>
