@@ -77,17 +77,18 @@ export default async function Query2() {
  
  
     const prompt = `
-    You are an expert recommender tasked with recommending activities for a user living in a specific. You are to rank the different links you find based on how likely the user is to take them. Use the user data given below to rank the different queries
-    User data:
-    ${userdata} 
-    Activity Data:
-   
-    ${activityData} 
- 
- 
- 
- 
-    `;
+    Generate an output in a JSON format using data from the user and the activities they are taking.  You are to rank the different links you find based on how likely the user is to take them. Use the user data given below to rank the different queries based on userdata and sort them into four categories 1. finding educational opportunities 2. work/internship / co-op opportunities 3 volunteering opportunities. 4. finding healthy food opportunities and food banks put them in JSON format based on the provided user data. sort this data and parse the output using the return format given below
+    do not yap only give me the output in the return format listed
+    
+User Data: ${userdata}
+Input data: ${activityData}
+
+Return format:
+{
+  “Catagory 1” : [Name1,Description1,Link1]
+  “Catagory 2” : [Name2,Description2,Link2],
+  
+  }`;
  
  
     // Call the GPT API with the prompt
