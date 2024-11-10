@@ -1,7 +1,7 @@
 // src/components/Home.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Navbar } from './navbar';
+
 import FadeTransition from './FadeTransition';
 
 function Home() {

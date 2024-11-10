@@ -29,6 +29,11 @@ body {
   background-color: #f7fafc; /* Light gray background */
 }
 
+/* Remove body overflow caused by navbar */
+body, html {
+  overflow-x: hidden;
+}
+
 .App {
   display: flex;
   flex-direction: column;
