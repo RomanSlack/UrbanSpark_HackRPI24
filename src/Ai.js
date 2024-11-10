@@ -3,7 +3,7 @@ import axios from 'axios';
 
 
 const API_KEY = process.env.REACT_APP_API_KEY;
-console.log('API Key:', API_KEY);
+
 
 export default async function Query(userdata) {
 
