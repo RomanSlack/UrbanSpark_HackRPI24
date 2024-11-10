@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link, useNavigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import instance from '../api';
 import Query from '../Ai';
 import Query2 from '../FinalOutputAi';
@@ -14,7 +14,7 @@ export default function Onboarding() {
     age: '',
   });
   const [searchResults, setSearchResults] = useState([]);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
