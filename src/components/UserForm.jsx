@@ -36,13 +36,14 @@ function UserForm() {
     const formattedData = `City: ${formData.city}\nAddress: ${formData.address}\nBio: ${formData.bio}\nAge: ${formData.age}`;
     console.log("Submitted Data:", formattedData);
 
-    const querysFromGPT = Query(formattedData); // Pass the formatted data to the Query function
+    {/*     const querysFromGPT = Query(formattedData); // Pass the formatted data to the Query function
 
     const datafromSearchAPI = searchAPI(querysFromGPT)
 
     const summarizedData = summarizeGPT(datafromSearchAPI)
+*/}
 
-    
+
 
     navigate('/opportunity');
 

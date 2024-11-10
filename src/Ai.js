@@ -9,16 +9,16 @@ export default async function Query(userdata) {
 
   userdata = userdata
   try {
-    {/* 
+     
     const userdata = `
     City: New York City
     Address: 919 3rd Ave, New York, NY 10022
     Bio: I like to paint and computers
     Age: 12
     `;
-    */}
+    
 
-    const prompt = `Generate a list of say 10 for each category of Google search queries, please find 10 for each in these categories
+    const prompt = `Generate a list of say 2 for each category of Google search queries, please find 10 for each in these categories
     1. Search queries for finding educational opportunities for the person, 2. Search queries for finding wokr / internship / co-op opportunities for the person. 3. Search queries for
     finding volunteering opprtunities for the person. 4. Search queries for fidning healthy food opportunities and food banks for the person. put them in JSON format based on the provided user data. 
 The queries should focus on activities and experiences within the user's city that match their interests and age. 
