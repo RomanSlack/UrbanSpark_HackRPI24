@@ -29,31 +29,33 @@ function UserForm() {
     setStep(step - 1);
   };
 
-  const handleSearch = async (queries) => {
+  const handleSearch = async (queriesArray) => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/search", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ queries }), // Pass the queries directly as { queries: [...] }
-      });
+        const response = await fetch("http://127.0.0.1:8000/search", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ queries: queriesArray }),  // Pass { queries: [...] }
+        });
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
 
-      const data = await response.json();
-      setSearchResults(data.results);
-      return data.results;
+        const data = await response.json();
+        setSearchResults(data.results);
+        return data.results;
     } catch (error) {
-      console.error("Error fetching search results:", error);
+        console.error("Error fetching search results:", error);
     }
-  };
+};
+
+  
   // Async function to call fetchSearchResults
   
 
-  const handleSubmit = async (e) => { // Make handleSubmit async
+  const handleSubmit = async (e) => { 
     e.preventDefault();
 
     const formattedData = {
@@ -61,28 +63,40 @@ function UserForm() {
         address: formData.address,
         bio: formData.bio,
         age: formData.age,
-      };
-
+    };
     console.log("Submitted Data:", formattedData);
     
-    const querysFromGPT = await Query(formattedData)
+    const querysFromGPT = await Query(formattedData);
+    console.log("Queries from Query1:", querysFromGPT);
 
-    
-    console.log("Queries from Query1", querysFromGPT);
-    
+    let queriesString = ''; // Declare queriesString outside the if block
 
-
-    if (Array.isArray(querysFromGPT)) {
-        const dataFromSearchAPI = await handleSearch(querysFromGPT); 
-        const summarizedData = Query2(dataFromSearchAPI);
-        console.log("Summarized Data:", summarizedData);
+    // Check if querysFromGPT contains the correct structure
+    if (querysFromGPT && querysFromGPT.queries) {
+        // Convert queries array to a comma-separated string
+        for (let i = 0; i < querysFromGPT.queries.length; i++) {
+            queriesString += querysFromGPT.queries[i];
+            if (i < querysFromGPT.queries.length - 1) {
+                queriesString += ', ';
+            }
+        }
+        
+        console.log("Comma-separated Queries String:", queriesString);
     } else {
-        console.error("Error: queriesFromGPT should be an array of strings.");
+        console.error("Error: querysFromGPT should contain a 'queries' array.");
+        return; // Exit the function if the structure is incorrect
     }
-    
-    
+
+    // Pass the comma-separated string to handleSearch
+    const dataFromSearchAPI = await handleSearch(queriesString); 
+    const summarizedData = Query2(dataFromSearchAPI);
+    console.log("Summarized Data:", summarizedData);
+
     navigate('/opportunity');
-  };
+};
+
+
+
 
   return (
     <div className="w-full max-w-md bg-gradient-to-r from-gray-50 to-gray-100 p-8 rounded-xl shadow-lg mt-10">

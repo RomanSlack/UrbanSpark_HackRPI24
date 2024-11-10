@@ -1,32 +1,34 @@
-# serp.py
+# serpservice.py
 
-import serpapi
+from serpapi import GoogleSearch  # Ensure you import GoogleSearch correctly
+from typing import List
 
 api_key = "8f0f7e61794200e4c5eda13abda9e8144ddfd7f655dad5ca45177feff6b0e1a3"
 
-def fetch_search_results(data):
+def fetch_search_results(data: dict) -> List[dict]:
     results_list = []
-    
-    for query in data["queries"]:
+
+    # Iterate over each query in the 'queries' array within the input data
+    for query in data.get("queries", []):
         params = {
             "engine": "google",
             "q": query,
             "api_key": api_key
         }
-        
-        try:
-            # Perform search with serpapi
-            search = serpapi.search(params)
-            results = search
 
-            # Check and store the first result if available
+        try:
+            # Execute the search using SerpApi
+            search = GoogleSearch(params)
+            results = search.get_dict()
+
+            # Process the first result if available
             if "organic_results" in results and results["organic_results"]:
                 first_result = results["organic_results"][0]
                 title = first_result.get("title", "No title available")
                 link = first_result.get("link", "No link available")
                 description = first_result.get("snippet", "No description available")
-                
-                # Add the result to the results list
+
+                # Append to results list
                 results_list.append({
                     "query": query,
                     "title": title,
@@ -34,6 +36,7 @@ def fetch_search_results(data):
                     "description": description
                 })
             else:
+                # Handle case where no results are found
                 results_list.append({
                     "query": query,
                     "title": "No results found",
@@ -42,6 +45,7 @@ def fetch_search_results(data):
                 })
 
         except Exception as e:
+            # Handle and log any error
             results_list.append({
                 "query": query,
                 "title": "Error occurred",
