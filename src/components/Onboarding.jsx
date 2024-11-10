@@ -1,9 +1,7 @@
+// src/components/Onboarding.js
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import instance from '../api';
-import Query from '../Ai';
-//import Query2 from '../FinalOutputAi';
+import { submitUserData } from './apiHandler';
 
 export default function Onboarding() {
   const [formData, setFormData] = useState({
@@ -14,36 +12,11 @@ export default function Onboarding() {
     age: '',
   });
   const [searchResults, setSearchResults] = useState([]);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSearch = async (queriesArray) => {
-    console.log("Queries Array being sent:", queriesArray);
-    try {
-      const response = await fetch("http://127.0.0.1:8000/search", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ queries: queriesArray }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const data = await response.json();
-      setSearchResults(data.results);
-      console.log("Data from FastAPI:", data.results);
-
-      return data.results;
-    } catch (error) {
-      console.error("Error fetching search results:", error);
-    }
   };
 
   const handleSubmit = async (e) => {
@@ -57,41 +30,8 @@ export default function Onboarding() {
       age: formData.age,
     };
 
-    console.log("Submitted Data:", formattedData);
-
-    // Fetch generated queries from the first AI function
-    const querysFromGPT = await Query(formattedData);
-    console.log("Queries from Query1:", querysFromGPT);
-    console.log("Type of querysFromGPT:", typeof querysFromGPT);
-
-    // Parse if needed and handle as an array
-    let parsedQueries;
-    if (typeof querysFromGPT === "string") {
-      try {
-        parsedQueries = JSON.parse(querysFromGPT);
-      } catch (error) {
-        console.error("Error parsing JSON:", error);
-      }
-    } else {
-      parsedQueries = querysFromGPT;
-    }
-
-    // Check if parsedQueries is in the expected format and pass to handleSearch
-    if (parsedQueries && Array.isArray(parsedQueries.queries)) {
-      const dataFromSearchAPI = await handleSearch(parsedQueries.queries);
-
-
-      console.log(typeof dataFromSearchAPI);
-
-      
-      //const summarizedData = Query2(formattedData,dataFromSearchAPI);
-     
-      //console.log("Summarized Data:", summarizedData);
-    } else {
-      console.error("Error: parsedQueries.queries should be an array of strings.");
-    }
-
-    navigate('/loading');  // Assuming this is the correct next page
+    const searchResults = await submitUserData(formattedData, navigate, setSearchResults);
+    console.log("Search Results Returned from submitUserData:", searchResults);
   };
 
   return (
