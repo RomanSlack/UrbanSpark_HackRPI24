@@ -17,6 +17,8 @@ import StartPage from "./pages/StartPage";
 import SubmittedPage from "./pages/SubmittedPage";
 import AiTest from "./AiTest";
 import { OpportunityOptions } from "./components/opportunity_options";
+import LoadingPage from "./components/LoadingPage";
+import Onboarding from "./components/Onboarding";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +46,14 @@ const router = createBrowserRouter([
   {
     path: "/opportunity/:category",
     element: <OpportunityOptions />
+  },
+  {
+    path: "/loading",
+    element: <LoadingPage />
+  },
+  {
+    path: "/onboarding",
+    element: <Onboarding />
   },
   {
     path: "/AiTest",

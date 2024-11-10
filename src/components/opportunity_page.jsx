@@ -5,6 +5,7 @@ import work from './assets/work.jpeg'
 import food from './assets/food.jpeg'
 import education from './assets/education.jpg'
 import volunteer from './assets/volunteer.jpg'
+import { AppNavbar } from "./AppNavbar";
 
 export default function OpportunityPage() {
 
@@ -44,7 +45,7 @@ export default function OpportunityPage() {
         <>
             <div>
                 <div className="grid mb-4">
-                    <Navbar />
+                    <AppNavbar />
                 </div>
                 <div className="grid mt-4">
                     <div className="flex justify-center">

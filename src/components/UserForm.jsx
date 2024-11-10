@@ -59,30 +59,33 @@ function UserForm() {
 const handleSubmit = async (e) => { 
   e.preventDefault();
 
-  const formattedData = {
-      city: formData.city,
-      address: formData.address,
-      bio: formData.bio,
-      age: formData.age,
+    const formattedData = {
+        city: formData.city,
+        address: formData.address,
+        bio: formData.bio,
+        age: formData.age,
+      };
+    
+    console.log("Submitted Data:", formattedData);
+    
+    const querysFromGPT = await Query(formattedData)
+
+    
+    console.log("Queries from Query1", querysFromGPT);
+    
+
+
+    if (Array.isArray(querysFromGPT)) {
+        const dataFromSearchAPI = await handleSearch(querysFromGPT); 
+        const summarizedData = Query2(dataFromSearchAPI);
+        console.log("Summarized Data:", summarizedData);
+    } else {
+        console.error("Error: queriesFromGPT should be an array of strings.");
+    }
+    
+    
+    navigate('/opportunity');
   };
-  console.log("Submitted Data:", formattedData);
-  
-  const querysFromGPT = await Query(formattedData);
-
-  
-  // Ensure queriesList is correctly structured as JSON
-  const queriesList = JSON.parse(querysFromGPT); // Make sure this is structured properly
-  const out = await handleSearch(queriesList.queries); // Passing queries array from JSON
-
-  // Use await to get the final response from Query2
-  const Final = await Query2(formattedData, out); 
-  console.log("output: ", Final);
-};
-
-
-
-
-
 
   return (
     <div className="w-full max-w-md bg-gradient-to-r from-gray-50 to-gray-100 p-8 rounded-xl shadow-lg mt-10">

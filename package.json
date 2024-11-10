@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@craco/craco": "^7.1.0",
+    "@mapbox/search-js-react": "^1.0.0-beta.22",
     "@tanstack/react-router-devtools": "^0.0.1-alpha.1",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",

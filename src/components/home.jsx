@@ -10,7 +10,7 @@ function Home() {
 
   const handleBeginClick = () => {
     setIsExiting(true);
-    setTimeout(() => navigate('/start'), 500);
+    setTimeout(() => navigate('/onboarding'), 500);
   };
 
   // Custom cursor state
