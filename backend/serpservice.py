@@ -1,4 +1,4 @@
-import serpapi
+from serpapi import GoogleSearch  # Import GoogleSearch directly
 from typing import List
 
 # Set up the API key
@@ -15,9 +15,9 @@ def fetch_search_results(data: dict) -> List[dict]:
         }
 
         try:
-            # Perform search with serpapi
-            search = serpapi.GoogleSearch(api_key)
-            results = search.get_json(params)
+            # Create a GoogleSearch instance and pass the params
+            search = GoogleSearch(params)
+            results = search.get_dict()  # Get results as a dictionary
 
             # Check and store the first result if available
             if "organic_results" in results and results["organic_results"]:
