@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 function UserForm() {
   const [formData, setFormData] = useState({
     city: '',
-    address: '', // New address field
+    address: '',
     bio: '',
     age: '',
   });
@@ -30,7 +30,6 @@ function UserForm() {
     const formattedData = `City: ${formData.city}\nAddress: ${formData.address}\nBio: ${formData.bio}\nAge: ${formData.age}`;
     console.log("Submitted Data:", formattedData);
 
-    // Redirect to the new blank page
     navigate('/opportunity');
   };
 
@@ -41,7 +40,26 @@ function UserForm() {
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Introductory Step */}
         {step === 1 && (
+          <div className="flex flex-col space-y-4">
+            <p className="text-lg text-gray-700">
+              We use this information to personalize your experience and connect you with relevant resources in your city.
+              Your data will remain secure and confidential.
+            </p>
+            <button
+              type="button"
+              onClick={handleNext}
+              className="relative w-full py-2 rounded-lg font-semibold text-white bg-gradient-to-r from-red-500 to-red-600 shadow-lg transition transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-300"
+            >
+              <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-red-400 to-red-600 blur-md opacity-75 animate-pulse"></span>
+              <span className="relative">Next</span>
+            </button>
+          </div>
+        )}
+
+        {/* Step 2: City and Address */}
+        {step === 2 && (
           <div className="flex flex-col space-y-4">
             <label className="text-lg font-medium text-gray-700">
               City
@@ -55,8 +73,6 @@ function UserForm() {
                 required
               />
             </label>
-
-            {/* New Address Field */}
             <label className="text-lg font-medium text-gray-700">
               Home Address
               <input
@@ -69,7 +85,6 @@ function UserForm() {
                 required
               />
             </label>
-
             <button
               type="button"
               onClick={handleNext}
@@ -81,7 +96,8 @@ function UserForm() {
           </div>
         )}
 
-        {step === 2 && (
+        {/* Step 3: Bio */}
+        {step === 3 && (
           <div className="flex flex-col space-y-4">
             <label className="text-lg font-medium text-gray-700">
               Bio
@@ -115,7 +131,8 @@ function UserForm() {
           </div>
         )}
 
-        {step === 3 && (
+        {/* Step 4: Age */}
+        {step === 4 && (
           <div className="flex flex-col space-y-4">
             <label className="text-lg font-medium text-gray-700">
               Age
