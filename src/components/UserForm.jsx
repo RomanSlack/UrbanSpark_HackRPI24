@@ -60,7 +60,10 @@ function UserForm() {
     const formattedData = `City: ${formData.city}\nAddress: ${formData.address}\nBio: ${formData.bio}\nAge: ${formData.age}`;
     console.log("Submitted Data:", formattedData);
     
-    const querysFromGPT = Query(formattedData)
+
+    
+    
+    const querysFromGPT = await Query(formattedData);
     console.log("Queries from Query1", querysFromGPT);
 
     const datafromSearchAPI = await handleSearch(querysFromGPT); // Await search to ensure it completes before navigating

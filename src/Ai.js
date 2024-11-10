@@ -10,12 +10,6 @@ export default async function Query(userdata) {
   userdata = userdata
   try {
      
-    const userdata = `
-    City: New York City
-    Address: 919 3rd Ave, New York, NY 10022
-    Bio: I like to paint and computers
-    Age: 12
-    `;
     
 
     const prompt = `Generate a list of say 2 for each category of Google search queries, please find 10 for each in these categories
