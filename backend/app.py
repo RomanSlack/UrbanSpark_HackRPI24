@@ -1,46 +1,35 @@
-# app.py
 from fastapi import FastAPI, HTTPException
+from serp import search_serpapi
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from serpservice import fetch_search_results  # Import the Python function
 from typing import List
 
 app = FastAPI()
 
-# Set up CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Allow requests from localhost:3000
+    allow_origins=["http://localhost:3000"],  # Allow your frontend origin
     allow_credentials=True,
-    allow_methods=["*"],  # Allow all HTTP methods
-    allow_headers=["*"],  # Allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
-class SearchQueries(BaseModel):
-    queries: List[str]  # List of query strings
+class QueryRequest(BaseModel):
+    queries: List[str]  # Expecting a list of strings
 
 @app.post("/search")
-async def search(data: SearchQueries):
-    try:
-        # Call fetch_search_results with the data as a dictionary
-        results = fetch_search_results(data.dict())
-        return {"results": results}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+async def search(query_request: QueryRequest):
+    queries = query_request.queries  # Extract the queries list from the request
 
-@app.get("/healthz")
-def health():
-    return {"live": 1}
+    all_results = {}
+    for query in queries:
+        result = search_serpapi(query)
+        print("hello ")
+        print(result)
+        
+        if "error" in result:
+            raise HTTPException(status_code=500, detail=result["error"])
+        
+        all_results[query] = result
 
-
-class SearchQuery(BaseModel):
-    queries: List[str]  # Ensure queries is a list of strings
-
-@app.post("/search")
-async def search(data: SearchQuery):
-    try:
-        # Pass the list of queries to fetch_search_results
-        search_results = fetch_search_results(data.dict())
-        return {"results": search_results}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    return {"results": all_results}

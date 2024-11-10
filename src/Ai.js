@@ -23,15 +23,17 @@ Ensure each query is specific to the city mentioned. use the user data to create
 this is data from the user: 
 ${JSON.stringify(userdata)}
 
-This is the return format for the queries generate data in exactly this format: do not yap only return the data in this format
+Only return JSON without any introductory text or explanation.
+This is the return format for the queries generate data in exactly this format: 
 Return format:
-{
-  "queries": [
+{ queries:
+  [
     "query1",
     "query2",
     ...
   ]
-}`;
+}
+`;
 //console.log(prompt);
     // Call the GPT API with the prompt
     const response = await axios.post(

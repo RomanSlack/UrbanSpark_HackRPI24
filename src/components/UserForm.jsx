@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Query from '../Ai';
 import Query2 from '../FinalOutputAi';
+import { data } from 'autoprefixer';
 
 
 function UserForm() {
@@ -30,13 +31,14 @@ function UserForm() {
   };
 
   const handleSearch = async (queriesArray) => {
+    console.log("Queries Array being sent:", queriesArray);  // Log the queries array to verify its structure
     try {
         const response = await fetch("http://127.0.0.1:8000/search", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ queries: queriesArray }),  // Pass { queries: [...] }
+            body: JSON.stringify({ queries: queriesArray }),  // Ensure this is an array of strings
         });
 
         if (!response.ok) {
@@ -45,55 +47,39 @@ function UserForm() {
 
         const data = await response.json();
         setSearchResults(data.results);
+        console.log("Data from FastAPI:", data.results);  // Log the data to the console
         return data.results;
     } catch (error) {
         console.error("Error fetching search results:", error);
     }
 };
 
+
+
+const handleSubmit = async (e) => { 
+  e.preventDefault();
+
+  const formattedData = {
+      city: formData.city,
+      address: formData.address,
+      bio: formData.bio,
+      age: formData.age,
+  };
+  console.log("Submitted Data:", formattedData);
   
-  // Async function to call fetchSearchResults
+  const querysFromGPT = await Query(formattedData);
+
   
+  // Ensure queriesList is correctly structured as JSON
+  const queriesList = JSON.parse(querysFromGPT); // Make sure this is structured properly
+  const out = await handleSearch(queriesList.queries); // Passing queries array from JSON
 
-  const handleSubmit = async (e) => { 
-    e.preventDefault();
-
-    const formattedData = {
-        city: formData.city,
-        address: formData.address,
-        bio: formData.bio,
-        age: formData.age,
-    };
-    console.log("Submitted Data:", formattedData);
-    
-    const querysFromGPT = await Query(formattedData);
-    console.log("Queries from Query1:", querysFromGPT);
-
-    let queriesString = ''; // Declare queriesString outside the if block
-
-    // Check if querysFromGPT contains the correct structure
-    if (querysFromGPT && querysFromGPT.queries) {
-        // Convert queries array to a comma-separated string
-        for (let i = 0; i < querysFromGPT.queries.length; i++) {
-            queriesString += querysFromGPT.queries[i];
-            if (i < querysFromGPT.queries.length - 1) {
-                queriesString += ', ';
-            }
-        }
-        
-        console.log("Comma-separated Queries String:", queriesString);
-    } else {
-        console.error("Error: querysFromGPT should contain a 'queries' array.");
-        return; // Exit the function if the structure is incorrect
-    }
-
-    // Pass the comma-separated string to handleSearch
-    const dataFromSearchAPI = await handleSearch(queriesString); 
-    const summarizedData = Query2(dataFromSearchAPI);
-    console.log("Summarized Data:", summarizedData);
-
-    navigate('/opportunity');
+  // Use await to get the final response from Query2
+  const Final = await Query2(formattedData, out); 
+  console.log("output: ", Final);
 };
+
+
 
 
 
