@@ -5,19 +5,34 @@ import axios from 'axios';
 const API_KEY = process.env.REACT_APP_API_KEY;
 console.log('API Key:', API_KEY);
 
-export default async function Query() {
+export default async function Query(userdata) {
+
+  userdata = userdata
   try {
+    {/* 
     const userdata = `
     City: New York City
+    Address: 919 3rd Ave, New York, NY 10022
     Bio: I like to paint and computers
     Age: 12
     `;
+    */}
 
-    const prompt = `You are a model that will generate a list of keywords to search in google according to the user data. The user data will include things the users are interested in the city they are in and their age. Your job is to query a search query in google to find relevant experiences they are interested in in order to find activities. The activities must be within the city they are in .
+    const prompt = `Generate a list of say 10 for each category of Google search queries, please find 10 for each in these categories
+    1. Search queries for finding educational opportunities for the person, 2. Search queries for finding wokr / internship / co-op opportunities for the person. 3. Search queries for
+    finding volunteering opprtunities for the person. 4. Search queries for fidning healthy food opportunities and food banks for the person. put them in JSON format based on the provided user data. 
+The queries should focus on activities and experiences within the user's city that match their interests and age. 
+Ensure each query is specific to the city mentioned.
 
-    return the output in the format of a json file
-    ${userdata}
-    `;
+User Data: ${userdata}
+Return format:
+{
+  "queries": [
+    "query1",
+    "query2",
+    ...
+  ]
+}`;
 
     // Call the GPT API with the prompt
     const response = await axios.post(

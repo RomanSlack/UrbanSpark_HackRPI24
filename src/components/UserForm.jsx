@@ -1,6 +1,7 @@
 // src/components/UserForm.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Query from '../Ai';
 
 function UserForm() {
   const [formData, setFormData] = useState({
@@ -29,7 +30,7 @@ function UserForm() {
     e.preventDefault();
     const formattedData = `City: ${formData.city}\nAddress: ${formData.address}\nBio: ${formData.bio}\nAge: ${formData.age}`;
     console.log("Submitted Data:", formattedData);
-
+    const queryfromgpt = Query(formattedData);
     navigate('/opportunity');
   };
 
@@ -106,7 +107,7 @@ function UserForm() {
                 value={formData.bio}
                 onChange={handleChange}
                 className="mt-2 p-3 w-full border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-red-400 focus:outline-none"
-                placeholder="A short description about you"
+                placeholder="A short description about you (Include sports and interests)"
                 rows="4"
                 required
               />
