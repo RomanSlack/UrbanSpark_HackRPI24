@@ -1,6 +1,8 @@
 // src/components/UserForm.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Query from '../Ai';
+import Query2 from '../FinalOutputAi';
 
 
 function UserForm() {
@@ -27,14 +29,8 @@ function UserForm() {
     setStep(step - 1);
   };
 
-  const handleSearch = async () => {
-    const queries = {
-      queries: [
-        "Art education opportunities for kids in New York City",
-        "Computer science education opportunities for kids in New York City",
-        // ...other queries as needed
-      ],
-    };
+  const handleSearch = async (queries) => {
+
 
     try {
       const response = await fetch('http://127.0.0.1:8000/search', {
@@ -60,7 +56,19 @@ function UserForm() {
 
   const handleSubmit = async (e) => { // Make handleSubmit async
     e.preventDefault();
-    await handleSearch(); // Await search to ensure it completes before navigating
+
+    const formattedData = `City: ${formData.city}\nAddress: ${formData.address}\nBio: ${formData.bio}\nAge: ${formData.age}`;
+    console.log("Submitted Data:", formattedData);
+    
+    const querysFromGPT = Query(formattedData)
+    console.log("Queries from Query1", querysFromGPT);
+
+    const datafromSearchAPI = await handleSearch(querysFromGPT); // Await search to ensure it completes before navigating
+
+    const summarizedData = Query2(datafromSearchAPI)
+    console.log("Summarized Data:", summarizedData);
+
+    
     navigate('/opportunity');
   };
 
