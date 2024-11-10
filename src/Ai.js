@@ -6,21 +6,24 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 
 
 export default async function Query(userdata) {
+  console.log("this is the user data")
 
 
   try {
+
     
 
     const prompt = `Generate a list of say 2 for each category of Google search queries, please find 10 for each in these categories
     1. Search queries for finding educational opportunities for the person, 2. Search queries for finding wokr / internship / co-op opportunities for the person. 3. Search queries for
     finding volunteering opprtunities for the person. 4. Search queries for fidning healthy food opportunities and food banks for the person. put them in JSON format based on the provided user data. 
 The queries should focus on activities and experiences within the user's city that match their interests and age. 
-Ensure each query is specific to the city mentioned.
+Ensure each query is specific to the city mentioned. use the user data to create the queries
 
 
+this is data from the user: 
+${JSON.stringify(userdata)}
 
-User Data: ${userdata}
-This is the return format for the queries.
+This is the return format for the queries generate data in exactly this format: do not yap only return the data in this format
 Return format:
 {
   "queries": [
@@ -29,7 +32,7 @@ Return format:
     ...
   ]
 }`;
-
+console.log(prompt);
     // Call the GPT API with the prompt
     const response = await axios.post(
       'https://api.openai.com/v1/chat/completions',
