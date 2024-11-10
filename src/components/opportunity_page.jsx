@@ -43,7 +43,9 @@ export default function OpportunityPage() {
     return (
         <>
             <div>
-                <Navbar />
+                <div className="grid mb-4">
+                    <Navbar />
+                </div>
                 <div className="grid mt-4">
                     <div className="flex justify-center">
                         <div>
