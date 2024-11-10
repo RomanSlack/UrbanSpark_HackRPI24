@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import instance from '../api';
 import Query from '../Ai';
-import Query2 from '../FinalOutputAi';
+//import Query2 from '../FinalOutputAi';
 
 export default function Onboarding() {
   const [formData, setFormData] = useState({
@@ -52,8 +52,8 @@ export default function Onboarding() {
     const formattedData = {
       name: formData.name,
       city: formData.city,
-      homeAddress: formData.homeAddress,
-      workSchoolAddress: formData.workSchoolAddress,
+      homeAddress: formData.home_address,
+      workSchoolAddress: formData.work_address,
       age: formData.age,
     };
 
@@ -145,7 +145,7 @@ export default function Onboarding() {
 
         <div className="form-control">
           <label className="label" htmlFor="work_address">
-            <span className="label-text">Work/School Address</span>
+            <span className="label-text">Interests</span>
           </label>
           <input
             type="text"
