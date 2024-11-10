@@ -27,11 +27,7 @@ function UserForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formattedData = `City: ${formData.city}\nBio: ${formData.bio}\nAge: ${formData.age}`;
-    console.log("Submitted Data:", formattedData); // Output to console
-
-    // Store formatted data in a variable for later use
-    const userData = formattedData;
-    console.log("Stored User Data:", userData);
+    console.log("Submitted Data:", formattedData);
 
     // Redirect to the new blank page
     navigate('/opportunity');
@@ -61,9 +57,10 @@ function UserForm() {
             <button
               type="button"
               onClick={handleNext}
-              className="w-full bg-red-500 text-white font-semibold py-2 rounded-lg shadow-lg hover:bg-red-600 transition"
+              className="relative w-full py-2 rounded-lg font-semibold text-white bg-gradient-to-r from-red-500 to-red-600 shadow-lg transition transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-300"
             >
-              Next
+              <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-red-400 to-red-600 blur-md opacity-75 animate-pulse"></span>
+              <span className="relative">Next</span>
             </button>
           </div>
         )}
@@ -86,16 +83,17 @@ function UserForm() {
               <button
                 type="button"
                 onClick={handlePrevious}
-                className="w-full mr-2 bg-gray-300 text-gray-700 font-semibold py-2 rounded-lg shadow-lg hover:bg-gray-400 transition"
+                className="relative w-full mr-2 py-2 rounded-lg font-semibold text-gray-700 bg-gray-300 shadow-lg hover:bg-gray-400 transition transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-300"
               >
                 Back
               </button>
               <button
                 type="button"
                 onClick={handleNext}
-                className="w-full ml-2 bg-red-500 text-white font-semibold py-2 rounded-lg shadow-lg hover:bg-red-600 transition"
+                className="relative w-full ml-2 py-2 rounded-lg font-semibold text-white bg-gradient-to-r from-red-500 to-red-600 shadow-lg transition transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-300"
               >
-                Next
+                <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-red-400 to-red-600 blur-md opacity-75 animate-pulse"></span>
+                <span className="relative">Next</span>
               </button>
             </div>
           </div>
@@ -119,15 +117,16 @@ function UserForm() {
               <button
                 type="button"
                 onClick={handlePrevious}
-                className="w-full mr-2 bg-gray-300 text-gray-700 font-semibold py-2 rounded-lg shadow-lg hover:bg-gray-400 transition"
+                className="relative w-full mr-2 py-2 rounded-lg font-semibold text-gray-700 bg-gray-300 shadow-lg hover:bg-gray-400 transition transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-300"
               >
                 Back
               </button>
               <button
                 type="submit"
-                className="w-full ml-2 bg-red-500 text-white font-semibold py-2 rounded-lg shadow-lg hover:bg-red-600 transition"
+                className="relative w-full ml-2 py-2 rounded-lg font-semibold text-white bg-gradient-to-r from-red-500 to-red-600 shadow-lg transition transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-300"
               >
-                Submit
+                <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-red-400 to-red-600 blur-md opacity-75 animate-pulse"></span>
+                <span className="relative">Submit</span>
               </button>
             </div>
           </div>

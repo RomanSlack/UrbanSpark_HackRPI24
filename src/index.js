@@ -7,6 +7,7 @@ import {
 // DO NOT REMOVE ./App.css THIS IS NEEDED FOR TAILWIND AND DAISY TO WORK
 import "./App.css"
 import "./index.css";
+import "./AiTest";
 
 
 import Home from "./components/home";
@@ -14,6 +15,7 @@ import OpportunityCard from "./components/opportunity_card";
 import OpportunityPage from "./components/opportunity_page";
 import StartPage from "./pages/StartPage";
 import SubmittedPage from "./pages/SubmittedPage";
+import AiTest from "./AiTest";
 
 const router = createBrowserRouter([
   {
@@ -37,7 +39,13 @@ const router = createBrowserRouter([
     path: "/opportunity",
     element: <OpportunityPage />,
 
+  },
+  {
+    path: "/AiTest",
+    element: <AiTest />,
+
   }
+
 
   
 
