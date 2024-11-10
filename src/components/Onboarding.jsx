@@ -1,7 +1,7 @@
-// FormComponent.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useNavigate } from 'react-router-dom';
+import instance from '../api';
 import Query from '../Ai';
 import Query2 from '../FinalOutputAi';
 
@@ -9,8 +9,8 @@ export default function Onboarding() {
   const [formData, setFormData] = useState({
     name: '',
     city: '',
-    homeAddress: '',
-    workSchoolAddress: '',
+    home_address: '',
+    work_address: '',
     age: '',
   });
   const [searchResults, setSearchResults] = useState([]);
@@ -129,14 +129,14 @@ export default function Onboarding() {
         </div>
 
         <div className="form-control">
-          <label className="label" htmlFor="homeAddress">
+          <label className="label" htmlFor="home_address">
             <span className="label-text">Home Address</span>
           </label>
           <input
             type="text"
-            id="homeAddress"
-            name="homeAddress"
-            value={formData.homeAddress}
+            id="home_address"
+            name="home_address"
+            value={formData.home_address}
             onChange={handleChange}
             className="input input-bordered w-full"
             required
@@ -144,14 +144,14 @@ export default function Onboarding() {
         </div>
 
         <div className="form-control">
-          <label className="label" htmlFor="workSchoolAddress">
+          <label className="label" htmlFor="work_address">
             <span className="label-text">Work/School Address</span>
           </label>
           <input
             type="text"
-            id="workSchoolAddress"
-            name="workSchoolAddress"
-            value={formData.workSchoolAddress}
+            id="work_address"
+            name="work_address"
+            value={formData.work_address}
             onChange={handleChange}
             className="input input-bordered w-full"
             required
