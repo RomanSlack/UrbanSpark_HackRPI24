@@ -16,18 +16,15 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
+
 class SearchQuery(BaseModel):
-    queries: List[str]
+    queries: List[str]  # Ensure queries is a list of strings
 
 @app.post("/search")
 async def search(data: SearchQuery):
     try:
-        # Fetch search results using the function
+        # Pass the list of queries to fetch_search_results
         search_results = fetch_search_results(data.dict())
         return {"results": search_results}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-@app.get("/healthz")
-def health():
-    return {"live": 1}
