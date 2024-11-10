@@ -16,6 +16,7 @@ import OpportunityPage from "./components/opportunity_page";
 import StartPage from "./pages/StartPage";
 import SubmittedPage from "./pages/SubmittedPage";
 import AiTest from "./AiTest";
+import { OpportunityOptions } from "./components/opportunity_options";
 
 const router = createBrowserRouter([
   {
@@ -41,22 +42,17 @@ const router = createBrowserRouter([
 
   },
   {
+    path: "/opportunity/:category",
+    element: <OpportunityOptions />
+  },
+  {
     path: "/AiTest",
     element: <AiTest />,
 
   }
-
-
-  
-
-
-
-  
 ]);
 
 // DO NOT EDIT THIS LINE AT ALL
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+  <RouterProvider router={router} />
 );

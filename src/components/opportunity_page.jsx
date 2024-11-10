@@ -10,28 +10,28 @@ export default function OpportunityPage() {
 
     const cards = [
         <OpportunityCard
-        uri={'/'}
+        uri={'/opportunity/food'}
         name={'Food'}
         description={<p>Locations to Food Pantry Services</p>}
         img_uri={food}
 
         ></OpportunityCard>,
         <OpportunityCard
-        uri={'/'}
+        uri={'/opportunity/work'}
         name={'Work'}
         description={<p>Access Work Services</p>}
         img_uri={work}
 
         ></OpportunityCard>,
         <OpportunityCard
-        uri={'/'}
+        uri={'/opportunity/education'}
         name={'Education'}
         description={<p>Access Educational Services</p>}
         img_uri={education}
 
         ></OpportunityCard>,
         <OpportunityCard
-        uri={'/'}
+        uri={'/opportunity/volunteer'}
         name={'Volunteering'}
         description={<p>Find places to volunteer</p>}
         img_uri={volunteer}
